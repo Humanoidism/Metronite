@@ -1,0 +1,239 @@
+.flyout-color(@color) {
+	a {
+		color: @color;
+	}
+
+	&.flyout > input {
+
+		&:not([type="submit"]) {
+			&:focus {
+				background-color: fade(@color, 20%);
+				border-color: darken(@color, 10%);
+
+				&::-webkit-input-placeholder {
+					color: desaturate(@color, 50%);
+				}
+			}
+		}
+	}
+}
+
+.flyout-theme (@theme) when (@theme = dark) {
+	&.flyout > input {
+		color: @grayLight;
+		background-color: rgba(0, 0, 0, .3);
+		border-color: rgba(255, 255, 255, .2);
+
+		&:not([type="submit"]) {
+			&:focus {
+				color: #fff;
+			}
+
+			&::-webkit-input-placeholder {
+				color: @gray;
+			}
+
+			&:disabled {
+				border-color: rgba(255, 255, 255, .1);
+				background-color: rgba(0, 0, 0, .1);
+			}
+		}
+
+		&[type="submit"] {
+			background-color: rgba(255, 255, 255, .03);
+
+			&:hover {
+				color: @white;
+				background-color: rgba(255, 255, 255, .08);
+				border-color: rgba(255, 255, 255, .4);
+			}
+
+			&:active,
+			&:focus {
+				color: @grayLight;
+				background-color: rgba(255, 255, 255, .06);
+				border-color: rgba(255, 255, 255, .3);
+			}
+
+			&:disabled {
+				background-color: rgba(255, 255, 255, .01);
+				border-color: rgba(255, 255, 255, .1);
+				color: @gray;
+			}
+		}
+	}
+
+	&.flyout > .flyout-close {
+		background-image: url(../icons/dark/appbar.close.png);
+	}
+}
+
+.flyout-theme (@theme) when (@theme = light) {
+	&.flyout > input {
+		color: @gray;
+		background-color: rgba(255, 255, 255, .3);
+		border-color: rgba(0, 0, 0, .2);
+
+		&:not([type="submit"]) {
+			&:focus {
+				color: #000;
+			}
+
+			&::-webkit-input-placeholder {
+				color: @grayLight;
+			}
+
+			&:disabled {
+				border-color: rgba(0, 0, 0, .1);
+				background-color: rgba(255, 255, 255, .1);
+			}
+		}
+
+		&[type="submit"] {
+			background-color: rgba(0, 0, 0, .03);
+
+			&:hover {
+				color: @grayDark;
+				background-color: rgba(0, 0, 0, .08);
+				border-color: rgba(0, 0, 0, .4);
+			}
+
+			&:active,
+			&:focus {
+				color: @gray;
+				background-color: rgba(0, 0, 0, .06);
+				border-color: rgba(0, 0, 0, .3);
+			}
+
+			&:disabled {
+				background-color: rgba(0, 0, 0, .01);
+				border-color: rgba(0, 0, 0, .1);
+				color: @grayLight;
+			}
+		}
+	}
+
+	&.flyout > .flyout-close {
+		background-image: url(../icons/light/appbar.close.png);
+	}
+}
+
+.flyout-direction (@direction) when (@direction = right) {
+	&.flyout > .flyout-close {
+		left: 6px;
+	}
+
+	&.flyout {
+		padding: 20px 40px 20px 40px;
+	}
+}
+
+.flyout-direction (@direction) when (@direction = left) {
+	&.flyout > .flyout-close {
+		right: 6px;
+	}
+
+	&.flyout {
+		padding: 20px 60px 20px 20px;
+	}
+}
+
+.flyout {
+
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 220px;
+
+	&.flyout-theme-dark {
+		background: rgba(0, 0, 0, .8);
+		color: #ffffff;
+		.flyout-theme(dark);
+	}
+
+	&.flyout-theme-light {
+		background: rgba(255, 255, 255, .8);
+		.flyout-theme(light);
+	}
+
+	&.flyout-direction-left {
+		left: 0;
+		.flyout-direction(left);
+	}
+
+	&.flyout-direction-right {
+		right: 0;
+		.flyout-direction(right);
+	}
+
+	// Colors
+	&.flyout-color-blue { .flyout-color(@blue) }
+	&.flyout-color-orange { .flyout-color(@orange) }
+	&.flyout-color-yellow { .flyout-color(@yellow) }
+	&.flyout-color-brown { .flyout-color(@brown) }
+	&.flyout-color-red { .flyout-color(@red) }
+	&.flyout-color-black { .flyout-color(@black) }
+	&.flyout-color-silver { .flyout-color(@silver) }
+	&.flyout-color-white { .flyout-color(@white) }
+	&.flyout-color-green { .flyout-color(@green) }
+	&.flyout-color-lime { .flyout-color(@lime) }
+	&.flyout-color-teal { .flyout-color(@teal) }
+	&.flyout-color-pink { .flyout-color(@pink) }
+	&.flyout-color-magenta { .flyout-color(@magenta) }
+	&.flyout-color-purple { .flyout-color(@purple) }
+
+}
+
+.flyout > .flyout-title {
+	font-weight: 300;
+	font-size: 24px;
+}
+
+.flyout > .flyout-close {
+	position: absolute;
+	top: 16px;
+	width: 32px;
+	height: 32px;
+	background: transparent no-repeat;
+	background-size: cover;
+	opacity: 0.5;
+	.transition(~"opacity .1s ease-in-out");
+
+	&:hover,
+	&:focus {
+		outline: none;
+		opacity: 1.0;
+	}
+}
+
+.flyout > input {
+	font-family: @sansFontFamily;
+	padding: 10px;
+	border: 1px solid #000;
+	outline: none;
+	margin: 5px 0;
+	.box-sizing(border-box);
+	.transition(~"all .06s ease-in-out");
+
+	&:not([type="submit"]) {
+		font-size: 18px;
+		font-weight: 300;
+	}
+
+	&[type="submit"] {
+		font-size: 14px;
+		font-weight: 400;
+		padding: 5px 20px;
+		cursor: default;
+
+		&:active {
+			padding-top: 6px;
+			padding-bottom: 4px;
+		}
+
+		&:disabled:active {
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+	}
+}
